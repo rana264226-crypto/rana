@@ -1,0 +1,15 @@
+{
+  "name": "kami-flex",
+  "version": "1.0.0",
+  "description": "Kami Flex Website with SIM Database API",
+  "main": "api/search.js",
+  "scripts": {
+    "start": "node api/search.js"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}￼Enter
