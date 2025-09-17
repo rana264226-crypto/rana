@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "database.js", "use": "@vercel/node" },
+    { "src": "database.html", "use": "@vercel/static" },
+    { "src": "index.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/database.js" },
+    { "src": "/", "dest": "/database.html" },
+    { "src": "/", "dest": "/index.html" }
+  ]
+}
