@@ -8,10 +8,10 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch(`https://api.impossible-world.xyz/api/data?phone=${phone}`);
-    const data = await response.json();
-    res.status(200).json(data);
+    const apiRes = await fetch(`https://api.impossible-world.xyz/api/data?phone=${phone}`);
+    const data = await apiRes.json();
+    return res.status(200).json(data);
   } catch (err) {
-    res.status(500).json({ error: "Server Error", details: err.message });
+    return res.status(500).json({ error: "Failed to fetch data" });
   }
-}￼Enter
+}
