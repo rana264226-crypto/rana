@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kami Flex SIM Database</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .spinner {
+      border: 4px solid rgba(255,255,255,0.3);
+      border-top: 4px solid #ec4899;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 12px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-green-200 via-blue-200 to-purple-200 flex items-center justify-center p-6">
+  <div class="w-full max-w-3xl bg-white rounded-2xl shadow-2xl p-8">
+    <h1 class="text-3xl font-extrabold text-center mb-8 tracking-wide text-gray-800">
+      ⚡ SIM Database <br> By Kami Flex
+    </h1>
+    <div class="flex gap-3 mb-6">
+      <input id="phoneInput" type="text" placeholder="Enter phone number (03xxxxxxxxx)" 
+             class="flex-1 px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-500" />
+      <button id="searchBtn" 
+              class="px-5 py-3 rounded-lg bg-green-600 hover:bg-green-700 text-white font-semibold">
+        Search
+      </button>
+    </div>
+
+    <!-- Loader -->
+    <div id="loadingArea" class="hidden text-center mt-6">
+      <div class="spinner"></div>
+      <p class="mt-2 text-lg font-bold">Searching...</p>
+    </div>
+
+    <!-- Results -->
+    <div id="resultArea" class="space-y-4"></div>
+  </div>
+
+  <script>
+    const searchBtn = document.getElementById("searchBtn");
+    const phoneInput = document.getElementById("phoneInput");
+    const loadingArea = document.getElementById("loadingArea");
+    const resultArea = document.getElementById("resultArea");
+
+    searchBtn.addEventListener("click", async () => {
+      const phone = phoneInput.value.trim();
+      if (!phone) {
+        alert("⚠️ Please enter a phone number!");
+        return;
+      }
+      resultArea.innerHTML = "";
+      loadingArea.classList.remove("hidden");
+
+      try {
+        const res = await fetch(`/api/search?phone=${phone}`);
+        const data = await res.json();
+        loadingArea.classList.add("hidden");
+
+        if (data.records && data.records.length > 0) {
+          data.records.forEach((record) => {
+            const card = document.createElement("div");
+            card.className = `p-6 rounded-xl shadow-lg bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white`;
+            card.innerHTML = `
+              <p><strong>👤 Name:</strong> ${record.Name || "N/A"}</p>
+              <p><strong>📱 Mobile:</strong> ${record.Mobile || "N/A"}</p>
+              <p><strong>🌍 Country:</strong> ${record.Country || "N/A"}</p>
+              <p><strong>🆔 CNIC:</strong> ${record.CNIC || "N/A"}</p>
+              <p><strong>🏠 Address:</strong> ${record.Address || "N/A"}</p>`;
+            resultArea.appendChild(card);
+          });
+        } else {
+          resultArea.innerHTML = `<p class="text-red-600 font-semibold text-center">❌ No record found.</p>`;
+        }
+      } catch (error) {
+        loadingArea.classList.add("hidden");
+        resultArea.innerHTML = `<p class="text-red-600 font-semibold text-center">⚠️ Error fetching data.</p>`;
+      }
+    });
+  </script>
+</body>
+</html>
