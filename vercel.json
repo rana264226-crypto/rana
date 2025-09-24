@@ -11,8 +11,8 @@
   ],
   "routes": [
     { "src": "/", "dest": "/index.html" },
+    { "src": "/signin", "dest": "/home.html" },
     { "src": "/signin", "dest": "/signin.html" },
-    { "src": "/home", "dest": "/home.html" },
     { "src": "/signup", "dest": "/signup.html" },
     { "src": "/jazz", "dest": "/jazz.html" },
     { "src": "/api/(.*)", "dest": "/database.js" },
