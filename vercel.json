@@ -11,11 +11,11 @@
   ],
   "routes": [
     { "src": "/", "dest": "/index.html" },
-    { "src": "/", "dest": "/signin.html" },
-    { "src": "/", "dest": "/signup.html" },
-    { "src": "/", "dest": "/home.html" },
-    { "src": "/", "dest": "/jazz.html" },
+    { "src": "/signin", "dest": "/signin.html" },
+    { "src": "/home", "dest": "/home.html" },
+    { "src": "/signup", "dest": "/signup.html" },
+    { "src": "/jazz", "dest": "/jazz.html" },
     { "src": "/api/(.*)", "dest": "/database.js" },
-    { "src": "/", "dest": "/database.html" }
+    { "src": "/database", "dest": "/database.html" }
   ]
 }
