@@ -2,20 +2,23 @@
   "version": 2,
   "builds": [
     { "src": "index.html", "use": "@vercel/static" },
-    { "src": "home.html", "use": "@vercel/static" },
-    { "src": "signin.html", "use": "@vercel/static" },
-    { "src": "signup.html", "use": "@vercel/static" },
+    { "src": "tool.html", "use": "@vercel/static" },
+    { "src": "jazztv.html", "use": "@vercel/static" },
     { "src": "jazz.html", "use": "@vercel/static" },
+    { "src": "zong.html", "use": "@vercel/static" },
+    { "src": "sports.html", "use": "@vercel/static" },
+    { "src": "images/(.*)", "use": "@vercel/static" },
     { "src": "database.js", "use": "@vercel/node" },
     { "src": "database.html", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/", "dest": "/index.html" },
-    { "src": "/home", "dest": "/home.html" },
-    { "src": "/signin", "dest": "/signin.html" },
-    { "src": "/signup", "dest": "/signup.html" },
-    { "src": "/jazz", "dest": "/jazz.html" },
+    { "src": "/", "dest": "/tool.html" },
+    { "src": "/", "dest": "/jazztv.html" },
+    { "src": "/", "dest": "/jazz.html" },
+    { "src": "/", "dest": "/zong.html" },
+    { "src": "/", "dest": "/sports.html" },
     { "src": "/api/(.*)", "dest": "/database.js" },
-    { "src": "/database", "dest": "/database.html" }
+    { "src": "/", "dest": "/database.html" }
   ]
 }
