@@ -7,7 +7,7 @@
     { "src": "jazz.html", "use": "@vercel/static" },
     { "src": "zong.html", "use": "@vercel/static" },
     { "src": "sports.html", "use": "@vercel/static" },
-    { "src": "images/(.*)", "use": "@vercel/static" },
+    { "src": "images/**", "use": "@vercel/static" },
     { "src": "database.js", "use": "@vercel/node" },
     { "src": "database.html", "use": "@vercel/static" }
   ],
