@@ -1,23 +1,24 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "api/*.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "*.html",
-      "use": "@vercel/static"
-    }
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "tool.html", "use": "@vercel/static" },
+    { "src": "jazztv.html", "use": "@vercel/static" },
+    { "src": "jazz.html", "use": "@vercel/static" },
+    { "src": "zong.html", "use": "@vercel/static" },
+    { "src": "sports.html", "use": "@vercel/static" },
+    { "src": "images/**", "use": "@vercel/static" },
+    { "src": "database.js", "use": "@vercel/node" },
+    { "src": "database.html", "use": "@vercel/static" }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/", "dest": "/tool.html" },
+    { "src": "/", "dest": "/jazztv.html" },
+    { "src": "/", "dest": "/jazz.html" },
+    { "src": "/", "dest": "/zong.html" },
+    { "src": "/", "dest": "/sports.html" },
+    { "src": "/api/(.*)", "dest": "/database.js" },
+    { "src": "/", "dest": "/database.html" }
   ]
 }
