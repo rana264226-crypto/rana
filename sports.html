@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kami Flex TV</title>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body {
+  margin:0;
+  font-family:sans-serif;
+  background:linear-gradient(135deg,#6366f1,#ec4899);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+h1 {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#fff;
+  margin:5px 0;
+  font-size:1.8rem;
+  font-weight:bold;
+}
+
+/* Back Button */
+#backBtn{
+  position:static;
+  width:40px;
+  height:40px;
+  background:rgba(0,0,0,0.6);
+  color:white;
+  border:none;
+  border-radius:6px;
+  font-size:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+#backBtn:hover{
+  background:rgba(255,255,255,0.3);
+}
+
+/* Player */
+.player-box {
+  width:100%;
+  max-width:900px;
+  aspect-ratio:16/9;
+  background:black;
+  border-radius:20px;
+  overflow:hidden;
+  position:sticky;
+  top:5px;
+  z-index:50;
+  box-shadow:0 10px 25px rgba(0,0,0,0.6);
+  margin-bottom:5px;
+}
+
+/* Controls */
+.controls{
+  position:absolute;
+  bottom:40px; left:0; right:0;
+  display:flex; justify-content:center; align-items:center;
+  opacity:1; transition:opacity 0.4s;
+  flex-wrap:wrap; z-index:20;
+}
+.controls.hidden{opacity:0; pointer-events:none;}
+.control-btn{
+  background:rgba(0,0,0,0.6); color:white; width:42px; height:42px;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  margin:0 6px; cursor:pointer; transition:0.3s; font-size:18px;
+}
+.control-btn:hover{background:rgba(255,255,255,0.3);}
+
+#channelName{
+  position:absolute; top:2px; left:2px; background:rgba(0,0,0,0.6);
+  color:white; padding:3px 8px; border-radius:6px; font-size:14px; z-index:25;
+}
+
+/* Quality menu */
+#qualityMenu{
+  position:absolute;
+  bottom:80px;
+  right:10px;
+  background:rgba(0,0,0,0.85);
+  border-radius:8px;
+  padding:6px;
+  display:none;
+  z-index:30;
+}
+#qualityMenu button{
+  display:block; width:100%; padding:4px 10px; color:white;
+  background:transparent; border:none; text-align:left; cursor:pointer;
+  border-radius:6px; margin-bottom:4px; box-shadow:0 0 5px rgba(0,0,0,0.5);
+}
+#qualityMenu button:hover{background:rgba(255,255,255,0.2);}
+#qualityMenu button.active-quality{
+  background:#9333ea; color:white; box-shadow:0 0 10px #9333ea;
+}
+
+/* Progress bar */
+#progressContainer{
+  position:absolute; bottom:10px; left:10px; right:10px;
+  height:6px; background: rgba(255,255,255,0.3); border-radius:3px;
+  cursor:pointer; z-index:20;
+}
+#progressBar{width:0%; height:100%; background:#9333ea; border-radius:3px;}
+#progressHandle{
+  position:absolute; top:-4px; width:14px; height:14px; background:#fff;
+  border-radius:50%; transform:translateX(-50%); cursor:pointer;
+}
+#timeDisplay{
+  position:absolute; bottom:18px; right:15px; color:white;
+  font-size:12px; background: rgba(0,0,0,0.5); padding:2px 5px; border-radius:4px; z-index:20;
+}
+
+/* Channels Grid */
+#channelGrid{
+  display:grid; grid-template-columns:repeat(6,1fr); gap:8px;
+  padding:5px; max-width:900px; width:100%;
+  overflow-y:auto;
+  margin-top:0px;
+}
+.channel-logo { width:65px;height:65px;border-radius:50%;object-fit:cover;cursor:pointer;transition:transform 0.3s,box-shadow 0.3s;border:2px solid transparent;}
+.channel-logo:hover{transform:scale(1.1);}
+.active-channel{border:2px solid #9333ea; box-shadow:0 0 15px #9333ea;}
+</style>
+</head>
+<body>
+
+<h1>
+  <button id="backBtn" onclick="goBack()">←</button>
+  📺 Kami Flex Live TV
+</h1>
+
+<div class="player-box" id="playerBox" onclick="toggleControls()">
+  <video id="videoPlayer" class="w-full h-full" autoplay poster="https://i.postimg.cc/LsR6vcVH/Kami-Flex-Player-Icon.jpg">
+  <!-- HLS video source will attach here dynamically -->
+</video>
+
+  <div id="controls" class="controls">
+    <button onclick="prevChannel()" class="control-btn">⏮</button>
+    <button id="playBtn" onclick="togglePlay()" class="control-btn">▶</button>
+    <button id="muteBtn" onclick="toggleMute()" class="control-btn">🔊</button>
+    <button onclick="nextChannel()" class="control-btn">⏭</button>
+    <button onclick="toggleFullScreen()" class="control-btn">⛶</button>
+    <button onclick="toggleSizeMode()" class="control-btn">🖼</button>
+    <button onclick="toggleQualityMenu()" class="control-btn">⚙</button>
+  </div>
+
+  <div id="qualityMenu"></div>
+  <div id="progressContainer" onclick="seekVideo(event)">
+    <div id="progressBar"></div>
+    <div id="progressHandle"></div>
+  </div>
+  <div id="timeDisplay">00:00 / 00:00</div>
+  <div id="channelName">Select a channel</div>
+</div>
+<div id="channelGrid">
+  <img src="https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/1756982709555.webp?id=16" 
+       onclick="playChannel(this,'ASIA CUP','https://cdn2aws.tamashaweb.com/out/v1/bbe6ba6d0d1c47fbb8042a49b64db630/index.m3u8')" 
+       alt="ASIA CUP" class="channel-logo">
+       
+  <img src="https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/1757480580826.webp?id=17" 
+       onclick="playChannel(this,'ASIA CUP Ads Free','https://cdn5aws.tamashaweb.com/out/v1/9fff7780125a4614a7f3567bc506dc7a/index_5.m3u8')" 
+       alt="ASIA CUP Ads Free" class="channel-logo">
+
+  <img src="https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/1755248383950.webp?id=18" 
+       onclick="playChannel(this,'EPL','https://cdn06khi.tamashaweb.com:8087/jazzauth/EPL-A-abr/live/EPL-banner/chunks.m3u8')" 
+       alt="EPL" class="channel-logo">
+
+  <img src="https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/1744124970890.webp?id=100" 
+       onclick="playChannel(this,'Tamasha News','https://cdn12isb.tamashaweb.com:8087/jazzauth/Tamasha-News-abr/playlist.m3u8')" 
+       alt="Tamasha News" class="channel-logo">
+
+  <img src="https://canvas.tamashaweb.com/jazzlive/uploads/channels/1686912440-logo.webp?id=96" 
+       onclick="playChannel(this,'Eurosport','https://cdn22lhr.tamashaweb.com:8087/jazzauth/Eurosport-abr/playlist.m3u8')" 
+       alt="Eurosport" class="channel-logo">
+
+  <img src="https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/1734528338327.webp?id=79" 
+       onclick="playChannel(this,'MMA','https://cdn08khi.tamashaweb.com:8087/jazzauth/MMA-abr/playlist.m3u8')" 
+       alt="MMA" class="channel-logo">
+
+  <img src="https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/ten-sports-hd-logo.webp?id=64" 
+       onclick="playChannel(this,'Ten Sports HD','https://cdn07isb.tamashaweb.com:8087/YlUHeDQb7a/157-3H/playlist.m3u8')" 
+       alt="Ten Sports HD" class="channel-logo">
+
+  <img src="https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/1749016875362.webp?id=36" 
+       onclick="playChannel(this,'Discovery HD','https://cdn23lhr.tamashaweb.com:8087/jazzauth/DiscoveryHD-abr/playlist.m3u8')" 
+       alt="Discovery HD" class="channel-logo">
+
+  <img src="https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/1749124554903.webp?id=92" 
+       onclick="playChannel(this,'CGTN HD','https://cdn23lhr.tamashaweb.com:8087/jazzauth/CgtnHD-abr/live/145M/chunks.m3u8')" 
+       alt="CGTN HD" class="channel-logo">
+
+  <img src="https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/1749124897580.webp?id=65" 
+       onclick="playChannel(this,'CGTN Documentary','https://cdn05khi.tamashaweb.com:8087/jazzauth/CgtnDocumentary-abr/playlist.m3u8')" 
+       alt="CGTN Documentary" class="channel-logo">
+
+  <img src="https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/1750321954030.webp?id=31" 
+       onclick="playChannel(this,'PTV Sports','https://cdn21lhr.tamashaweb.com:8087/jazzauth/PTVSports-abr/playlist.m3u8')" 
+       alt="PTV Sports" class="channel-logo">
+
+</div>
+
+<script>
+let hls, currentIndex=-1, sizeMode="fit";
+const video=document.getElementById("videoPlayer");
+const playBtn=document.getElementById("playBtn");
+const muteBtn=document.getElementById("muteBtn");
+const qualityMenu=document.getElementById("qualityMenu");
+const controls=document.getElementById("controls");
+const playerBox=document.getElementById("playerBox");
+const channels=Array.from(document.querySelectorAll(".channel-logo"));
+const progressBar=document.getElementById("progressBar");
+const progressContainer=document.getElementById("progressContainer");
+const progressHandle=document.getElementById("progressHandle");
+const timeDisplay=document.getElementById("timeDisplay");
+
+function playChannel(el,name,url){
+  currentIndex=channels.indexOf(el);
+  document.getElementById("channelName").innerText=name;
+  channels.forEach(c=>c.classList.remove("active-channel"));
+  el.classList.add("active-channel");
+  
+  if(hls){hls.destroy(); qualityMenu.innerHTML="";}
+  if(Hls.isSupported()){
+    hls=new Hls();
+    hls.loadSource(url);
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED,function(event,data){
+      setupQualityMenu(data.levels);
+    });
+  }else if(video.canPlayType('application/vnd.apple.mpegurl')){
+    video.src=url;
+  }
+}
+
+function setupQualityMenu(levels){
+  qualityMenu.innerHTML="";
+  let autoBtn=document.createElement("button");
+  autoBtn.innerText="Auto";
+  autoBtn.onclick=()=>{hls.currentLevel=-1; updateQualityActive(autoBtn);}
+  qualityMenu.appendChild(autoBtn);
+
+  levels.forEach((lvl,i)=>{
+    let btn=document.createElement("button");
+    btn.innerText=lvl.height + "p";
+    btn.onclick=()=>{
+      hls.currentLevel=i; 
+      updateQualityActive(btn);
+    };
+    qualityMenu.appendChild(btn);
+  });
+  updateQualityActive(autoBtn);
+}
+
+function updateQualityActive(activeBtn){
+  Array.from(qualityMenu.children).forEach(btn=>btn.classList.remove("active-quality"));
+  activeBtn.classList.add("active-quality");
+}
+
+function prevChannel(){if(currentIndex>0) channels[currentIndex-1].click();}
+function nextChannel(){if(currentIndex<channels.length-1) channels[currentIndex+1].click();}
+function togglePlay(){if(video.paused){video.play();playBtn.innerText="⏸";}else{video.pause();playBtn.innerText="▶";}}
+function toggleMute(){video.muted=!video.muted; muteBtn.innerText=video.muted?"🔇":"🔊";}
+function toggleFullScreen(){if(!document.fullscreenElement){playerBox.requestFullscreen();}else{document.exitFullscreen();}}
+function toggleQualityMenu(){qualityMenu.style.display=(qualityMenu.style.display==="block")?"none":"block";}
+function toggleSizeMode(){if(sizeMode==="fit"){setSize("fill");}else if(sizeMode==="fill"){setSize("stretch");}else{setSize("fit");}}
+function setSize(mode){sizeMode=mode; video.style.objectFit=(mode==="fit")?"contain":(mode==="fill")?"cover":"fill";}
+function toggleControls(){controls.classList.toggle("hidden"); document.getElementById("channelName").classList.toggle("hidden"); progressContainer.classList.toggle("hidden"); timeDisplay.classList.toggle("hidden");}
+function goBack(){window.location.href="index.html";}
+
+// Update progress bar
+video.addEventListener('timeupdate',()=>{
+  if(video.duration){
+    const percent=(video.currentTime/video.duration)*100;
+    progressBar.style.width=percent+"%";
+    progressHandle.style.left=percent+"%";
+    const curMin=Math.floor(video.currentTime/60).toString().padStart(2,'0');
+    const curSec=Math.floor(video.currentTime%60).toString().padStart(2,'0');
+    const durMin=Math.floor(video.duration/60).toString().padStart(2,'0');
+    const durSec=Math.floor(video.duration%60).toString().padStart(2,'0');
+    timeDisplay.innerText=`${curMin}:${curSec} / ${durMin}:${durSec}`;
+  }
+});
+
+// Seek
+function seekVideo(e){
+  const rect=progressContainer.getBoundingClientRect();
+  let pos=(e.clientX-rect.left)/rect.width;
+  video.currentTime=pos*video.duration;
+}
+
+// Drag handle
+let dragging=false;
+progressHandle.addEventListener("mousedown",()=>{dragging=true;});
+document.addEventListener("mouseup",()=>{dragging=false;});
+document.addEventListener("mousemove",(e)=>{
+  if(dragging){
+    const rect=progressContainer.getBoundingClientRect();
+    let pos=(e.clientX-rect.left)/rect.width;
+    pos=Math.max(0,Math.min(1,pos));
+    video.currentTime=pos*video.duration;
+  }
+});
+</script>
+</body>
+</html>
