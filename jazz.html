@@ -61,6 +61,29 @@ h1 {
   margin-bottom:5px;
 }
 
+/* Loader */
+#loader {
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.6);
+  z-index:100;
+  visibility:hidden;
+}
+.loader-spin {
+  border:4px solid rgba(255,255,255,0.3);
+  border-top:4px solid #9333ea;
+  border-radius:50%;
+  width:50px;
+  height:50px;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin {
+  100% {transform:rotate(360deg);}
+}
+
 /* Controls */
 .controls{
   position:absolute;
@@ -143,6 +166,11 @@ h1 {
   <!-- HLS video source will attach here dynamically -->
 </video>
 
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-spin"></div>
+  </div>
+
   <div id="controls" class="controls">
     <button onclick="prevChannel()" class="control-btn">⏮</button>
     <button id="playBtn" onclick="togglePlay()" class="control-btn">▶</button>
@@ -161,8 +189,10 @@ h1 {
   <div id="timeDisplay">00:00 / 00:00</div>
   <div id="channelName">Select a channel</div>
 </div>
+
 <div id="channelGrid">
-    <img src="https://canvas.tamashaweb.com/jazzlive/uploads/channels/1702552123-logo.webp?id=17" 
+  <!-- channels same as your code -->
+     <img src="https://canvas.tamashaweb.com/jazzlive/uploads/channels/1702552123-logo.webp?id=17" 
          onclick="playChannel(this,'Green Entertainment','https://cdn12isb.tamashaweb.com:8087/YlUHeDQb7a/Green_Entertainment-abr/playlist.m3u8')" 
          alt="Green Entertainment" class="channel-logo">
 
@@ -534,7 +564,7 @@ h1 {
   <img src="https://canvas.tamashaweb.com/jazzlive/uploads/channels/logo/HUM-Pashto-Channel-logo.webp?id=29"
        onclick="playChannel(this,'Pashto 1','https://cdn12isb.tamashaweb.com:8087/YlUHeDQb7a/Pashto1-abr/playlist.m3u8')" 
        alt="Pashto 1" class="channel-logo">
-  </div>
+</div>
 
 <script>
 let hls, currentIndex=-1, sizeMode="fit";
@@ -549,8 +579,10 @@ const progressBar=document.getElementById("progressBar");
 const progressContainer=document.getElementById("progressContainer");
 const progressHandle=document.getElementById("progressHandle");
 const timeDisplay=document.getElementById("timeDisplay");
+const loader=document.getElementById("loader");
 
 function playChannel(el,name,url){
+  loader.style.visibility="visible"; // show loader
   currentIndex=channels.indexOf(el);
   document.getElementById("channelName").innerText=name;
   channels.forEach(c=>c.classList.remove("active-channel"));
@@ -563,9 +595,12 @@ function playChannel(el,name,url){
     hls.attachMedia(video);
     hls.on(Hls.Events.MANIFEST_PARSED,function(event,data){
       setupQualityMenu(data.levels);
+      loader.style.visibility="hidden"; // hide loader
+      video.play();
     });
   }else if(video.canPlayType('application/vnd.apple.mpegurl')){
     video.src=url;
+    video.addEventListener("canplay",()=>loader.style.visibility="hidden",{once:true});
   }
 }
 
