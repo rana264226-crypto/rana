@@ -1,51 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kami Flex TV</title>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live TV Player</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #111; color: #fff; margin: 0; padding: 0;}
+    #channel-container { display: flex; flex-wrap: wrap; padding: 10px; gap: 10px; justify-content: center;}
+    .channel-logo { width: 80px; height: 80px; object-fit: cover; cursor: pointer; border: 2px solid transparent; border-radius: 8px;}
+    .channel-logo:hover { border-color: #0f0; }
+    #player-container { text-align: center; margin-top: 20px; }
+    video { width: 90%; max-width: 800px; border-radius: 10px; }
+  </style>
 </head>
 <body>
 
-<h1>
-  <button id="backBtn" onclick="goBack()">←</button>
-  📺 Kami Flex Live TV
-</h1>
+<h2 style="text-align:center;">Select a channel</h2>
+<div id="channel-container"></div>
 
-<div class="player-box" id="playerBox" onclick="toggleControls()">
-  <video id="videoPlayer" class="w-full h-full" autoplay poster="https://i.postimg.cc/LsR6vcVH/Kami-Flex-Player-Icon.jpg">
-  </video>
-
-  <div id="loader">
-    <div class="loader-spin"></div>
+<div id="player-container">
+  <video id="video-player" controls poster="" autoplay></video>
+  <div style="margin-top:5px;">
+    <button onclick="videoPlayer.pause()">⏸</button>
+    <button onclick="videoPlayer.play()">▶</button>
+    <button onclick="videoPlayer.volume+=0.1">🔊</button>
+    <button onclick="videoPlayer.volume-=0.1">🔉</button>
+    <button onclick="toggleFullscreen()">⛶</button>
   </div>
-
-  <div id="controls" class="controls">
-    <button onclick="prevChannel()" class="control-btn">⏮</button>
-    <button id="playBtn" onclick="togglePlay()" class="control-btn">▶</button>
-    <button id="muteBtn" onclick="toggleMute()" class="control-btn">🔊</button>
-    <button onclick="nextChannel()" class="control-btn">⏭</button>
-    <button onclick="toggleFullScreen()" class="control-btn">⛶</button>
-    <button onclick="toggleSizeMode()" class="control-btn">🖼</button>
-    <button onclick="toggleQualityMenu()" class="control-btn">⚙</button>
-  </div>
-
-  <div id="qualityMenu"></div>
-  <div id="progressContainer" onclick="seekVideo(event)">
-    <div id="progressBar"></div>
-    <div id="progressHandle"></div>
-  </div>
-  <div id="timeDisplay">00:00 / 00:00</div>
-  <div id="channelName">Select a channel</div>
 </div>
 
-<div id="channelGrid"></div>
-
 <script src="channels.js"></script>
-<script src="player.js"></script>
+<script>
+  const videoPlayer = document.getElementById('video-player');
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      videoPlayer.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
+</script>
 
 </body>
 </html>
