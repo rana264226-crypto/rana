@@ -69,7 +69,7 @@
 <!-- MAIN SCREEN -->
 <div id="mainScreen" class="hidden w-full max-w-3xl bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-white/20 relative">
   <!-- Back Button -->
-  <button onclick="window.location.reload()" class="absolute top-3 left-3 text-white text-lg font-bold px-3 py-1 rounded-lg bg-black/40 hover:bg-black/60">
+  <button onclick="goBack()" class="absolute top-3 left-3 text-white text-lg font-bold px-3 py-1 rounded-lg bg-black/40 hover:bg-black/60">
     ⬅ Back
   </button>
 
@@ -99,7 +99,7 @@
 </div>
 
 <script>
-const correctKey = "Kami123"; // Replace with your key
+const correctKey = "Kami123"; 
 const loginScreen = document.getElementById("loginScreen");
 const mainScreen = document.getElementById("mainScreen");
 const loginKey = document.getElementById("loginKey");
@@ -107,6 +107,12 @@ const loginBtn = document.getElementById("loginBtn");
 const loginText = document.getElementById("loginText");
 const loginSpinner = document.getElementById("loginSpinner");
 const loginError = document.getElementById("loginError");
+
+// ✅ Ads should load first
+(function(s){
+  s.dataset.zone='9939958';
+  s.src='https://groleegni.net/vignette.min.js';
+})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
 
 // ✅ Check saved login
 if(localStorage.getItem("kamiLogin") === "true"){
@@ -192,14 +198,12 @@ function copyDetails(btn){
   btn.innerText = "✅ Copied!";
   setTimeout(()=>{ btn.innerText="📋 Copy"; },2000);
 }
-</script>
 
-<!-- ✅ ADS SCRIPT -->
-<script>
-(function(s){
-  s.dataset.zone='9939958';
-  s.src='https://groleegni.net/vignette.min.js';
-})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))
+// ✅ Back button function
+function goBack(){
+  localStorage.removeItem("kamiLogin");
+  window.location.href = "index.html";
+}
 </script>
 </body>
-</html>
+      </html>
