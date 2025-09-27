@@ -4,7 +4,10 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kami Flex - Home</title>
-  <meta name="monetag" content="b805f1bd7c6023d0341a4d15bd8fe547"> <!-- ✅ Monetag Verification -->
+
+  <!-- ✅ Monetag Verification -->
+  <meta name="monetag" content="b805f1bd7c6023d0341a4d15bd8fe547"> 
+
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .animated-text {
@@ -41,7 +44,6 @@
 
   <!-- 🌐 HOME PAGE -->
   <div id="homePage" class="hidden flex flex-col min-h-screen">
-
     <!-- NAVBAR -->
     <header class="backdrop-blur-sm bg-white/30 sticky top-0 z-40">
       <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-center relative">
@@ -81,8 +83,6 @@
       <p class="text-lg text-gray-700 max-w-xl mb-8">
         You have successfully logged in with your access key.
       </p>
-
-      <!-- Services Section -->
       <div class="grid gap-6 w-full max-w-lg">
         <a href="jazztv.html"
            class="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-pink-500 to-yellow-500 text-white font-bold shadow-lg hover:scale-105 transition transform duration-300">
@@ -113,7 +113,6 @@
   <script>
     const correctKey = "12345"; // 🔑 Change apni key
 
-    // ✅ Check if already logged in
     window.onload = function(){
       if(localStorage.getItem("kamiFlexLogin") === "true"){
         document.getElementById("loginScreen").style.display = "none";
@@ -132,11 +131,10 @@
       if(key === correctKey){
         loginBtn.disabled = true;
         loading.classList.remove("hidden");
-
         setTimeout(() => {
           document.getElementById("loginScreen").style.display = "none";
           document.getElementById("homePage").classList.remove("hidden");
-          localStorage.setItem("kamiFlexLogin", "true"); // 🔥 Save login
+          localStorage.setItem("kamiFlexLogin", "true");
         }, 2000);
       } else {
         errorMsg.classList.remove("hidden");
@@ -148,9 +146,8 @@
       sidebar.classList.toggle("translate-x-full");
     }
 
-    // 🚪 Logout
     function logout(){
-      localStorage.removeItem("kamiFlexLogin"); // ❌ Clear login
+      localStorage.removeItem("kamiFlexLogin");
       document.getElementById("homePage").classList.add("hidden");
       document.getElementById("loginScreen").style.display = "flex";
       document.getElementById("accessKey").value = "";
@@ -159,7 +156,6 @@
       toggleMenu();
     }
 
-    // ✅ Close sidebar when clicking on main content
     document.getElementById("mainContent").addEventListener("click", () => {
       const sidebar = document.getElementById("sidebar");
       if (!sidebar.classList.contains("translate-x-full")) {
@@ -168,12 +164,14 @@
     });
   </script>
 
-  <!-- ✅ Monetag Ads Script -->
-  <script>
-    (function(s){
-      s.dataset.zone='9939911';
-      s.src='https://forfrogadiertor.com/tag.min.js';
-    })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))
-  </script>
+  <!-- ✅ Monetag Ads Scripts -->
+  <script>(function(s){s.dataset.zone='9939911',s.src='https://forfrogadiertor.com/tag.min.js'})([document.documentElement,document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+  <!-- ✅ New Ads Script 1 -->
+  <script>(function(s){s.dataset.zone='9939998',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement,document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+  <!-- ✅ New Ads Script 2 -->
+  <script>(function(s){s.dataset.zone='9940001',s.src='https://forfrogadiertor.com/tag.min.js'})([document.documentElement,document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
 </body>
 </html>
