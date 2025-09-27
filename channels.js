@@ -24,7 +24,6 @@ const channels = [
   { name:"Kashish TV", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7a5ORjEqgt5veU6e0ltVmk_IZuov34IVWN4DwQELwboZIEJc&s", url:"https://vodzong.mjunoon.tv:8087/streamtest/Kashish-150/playlist.m3u8" },
   { name:"Awaz TV", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGw2NFUe2PRUaUZ5zPFexMWsJdD5XdTJhcUg&usqp=CAU", url:"https://vodzong.mjunoon.tv:8087/streamtest/AWAZ-120/playlist.m3u8" },
   { name:"Time News", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9ItuK1wSgi8G2Cluif09aNKdbxSYa5E1pYJw66W6RDjck2-KfHIlBAAM&s=10", url:"https://vodzong.mjunoon.tv:8087/streamtest/time-news-172/playlist.m3u8" }
-  // Continue the rest in same format
 ];
 // Generate channel grid
 const grid = document.getElementById("channelGrid");
@@ -34,4 +33,5 @@ channelList.forEach(ch=>{
   img.onclick = ()=>playChannel(img, ch.name, ch.url);
   grid.appendChild(img);
 });
+
 
