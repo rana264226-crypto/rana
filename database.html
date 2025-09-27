@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kami Flex SIM Database</title>
+
+  <!-- ✅ Monetag verification -->
+  <meta name="monetag" content="b805f1bd7c6023d0341a4d15bd8fe547">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
@@ -108,12 +112,6 @@ const loginText = document.getElementById("loginText");
 const loginSpinner = document.getElementById("loginSpinner");
 const loginError = document.getElementById("loginError");
 
-// ✅ Ads should load first
-(function(s){
-  s.dataset.zone='9939958';
-  s.src='https://groleegni.net/vignette.min.js';
-})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
-
 // ✅ Check saved login
 if(localStorage.getItem("kamiLogin") === "true"){
   loginScreen.classList.add("hidden");
@@ -205,5 +203,9 @@ function goBack(){
   window.location.href = "index.html";
 }
 </script>
+
+<!-- ✅ Extra Ads Script at bottom -->
+<script src="https://fpyf8.com/88/tag.min.js" data-zone="174168" async data-cfasync="false"></script>
+
 </body>
-      </html>
+</html>
