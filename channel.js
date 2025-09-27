@@ -1,6 +1,3 @@
-<div id="channels-container"></div>
-
-<script>
 const channels = [
   { name:"Saudi Quran", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4atGM34rXtNQzx2wCnQQVzGSjU805qIOdFw&usqp=CAU", url:"https://vodzong.mjunoon.tv:8087/streamtest/SaudiQuran-142/playlist.m3u8" },
   { name:"Saudi Sunnah", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGupfsMkkP5X3iP6XZx6yi2LSzq8_6TIOC-w&usqp=CAU", url:"https://vodzong.mjunoon.tv:8087/streamtest/SaudiSunnah-141/live/141M/chunks.m3u8" },
@@ -19,18 +16,23 @@ const channels = [
   { name:"A Plus", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdzutge89wiGQnXi2_-xgth7iKTQiHQS1ZzQ&usqp=CAU", url:"https://vodzong.mjunoon.tv:8087/streamtest/APlus-118/playlist.m3u8" },
   { name:"AAJ Entertainment", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKeKZG1vzTQk_qslUAkxCz_KwQo4bXdFL7d1OFpH6-XkZNk0&s", url:"https://vodzong.mjunoon.tv:8087/streamtest/AAJENT-125/playlist.m3u8" },
   { name:"AAJ News", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw3XifA6zKwga4pcAvvSHEi4Jx-vMLbIBfjBijrZiG1hhVwtxJES73OqXk&s=10", url:"https://vodzong.mjunoon.tv:8087/streamtest/AAJNews-124/playlist.m3u8" },
-  // Yahan se saare baki channels bhi isi format me add kar dein
+  { name:"Sindh TV", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGsxWjXyJ9Nxvf78Le-W1jkerBBuztBahqs6VO3g8QZPVJC_LKagkmBYU&s=10", url:"https://vodzong.mjunoon.tv:8087/streamtest/SindhTV-136-1/live/136-1M/chunks.m3u8" },
+  { name:"Sindh News", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTElWZUWbSKUaT9_4ZMQ_6rH2n7qzcRCsmrgw&usqp=CAU", url:"https://vodzong.mjunoon.tv:8087/streamtest/SindhNews-136-2/playlist.m3u8" },
+  { name:"KTN TV", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1Vbtybwih6wSaFraEAU6ym_-jyUXoz9qBYA&usqp=CAU", url:"https://vodzong.mjunoon.tv:8087/streamtest/KTN-149/playlist.m3u8" },
+  { name:"KTN News", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqACj5a67chU59ADkTM8gApWbYjQjKyDzHEA&usqp=CAU", url:"https://vodzong.mjunoon.tv:8087/streamtest/KTNNews-151/playlist.m3u8" },
+  { name:"Kashish TV", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7a5ORjEqgt5veU6e0ltVmk_IZuov34IVWN4DwQELwboZIEJc&s", url:"https://vodzong.mjunoon.tv:8087/streamtest/Kashish-150/playlist.m3u8" },
+  { name:"Awaz TV", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGw2NFUe2PRUaUZ5zPFexMWsJdD5XdTJhcUg&usqp=CAU", url:"https://vodzong.mjunoon.tv:8087/streamtest/AWAZ-120/playlist.m3u8" },
+  { name:"Time News", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9ItuK1wSgi8G2Cluif09aNKdbxSYa5E1pYJw66W6RDjck2-KfHIlBAAM&s=10", url:"https://vodzong.mjunoon.tv:8087/streamtest/time-news-172/playlist.m3u8" }
+  // Continue the rest in same format
 ];
 
-const container = document.getElementById('channels-container');
-
-channels.forEach(channel => {
-  const img = document.createElement('img');
-  img.src = channel.logo;
-  img.alt = channel.name;
-  img.className = 'channel-logo';
-  img.style.cursor = 'pointer';
-  img.onclick = () => playChannel(img, channel.name, channel.url);
+// Render channels dynamically
+const container = document.getElementById("channel-container");
+channels.forEach(ch => {
+  const img = document.createElement("img");
+  img.src = ch.logo;
+  img.alt = ch.name;
+  img.className = "channel-logo";
+  img.onclick = () => playChannel(ch);
   container.appendChild(img);
 });
-</script>
