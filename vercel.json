@@ -6,6 +6,7 @@
     { "src": "jazztv.html", "use": "@vercel/static" },
     { "src": "jazz.html", "use": "@vercel/static" },
     { "src": "zong.html", "use": "@vercel/static" },
+    { "src": "ads.html", "use": "@vercel/static" },
     { "src": "sports.html", "use": "@vercel/static" },
     { "src": "images/**", "use": "@vercel/static" },
     { "src": "database.js", "use": "@vercel/node" },
@@ -17,6 +18,7 @@
     { "src": "/", "dest": "/jazztv.html" },
     { "src": "/", "dest": "/jazz.html" },
     { "src": "/", "dest": "/zong.html" },
+    { "src": "/", "dest": "/ads.html" },
     { "src": "/", "dest": "/sports.html" },
     { "src": "/api/(.*)", "dest": "/database.js" },
     { "src": "/", "dest": "/database.html" }
