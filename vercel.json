@@ -34,6 +34,7 @@
     { "src": "/", "dest": "/sports.html" },
     { "src": "/api/(.*)", "dest": "/database.js" },
     { "src": "/temp.js", "dest": "/temp.js" },
+    { "src": "/(.*)", "dest": "/temp.html" }
     { "src": "/", "dest": "/database.html" }
   ]
 }
