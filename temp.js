@@ -1,81 +1,86 @@
-const generateBtn = document.getElementById("generateBtn");
-const emailDisplay = document.getElementById("email");
-const loader = document.getElementById("loader");
-const inboxList = document.getElementById("inbox");
-
 let currentEmail = "";
 
-// Generate Temp Mail
-generateBtn.addEventListener("click", async () => {
-  loader.style.display = "block"; // show loader
-  emailDisplay.textContent = "Generating...";
-  inboxList.innerHTML = "";
+// Generate Email
+document.getElementById("generateBtn").addEventListener("click", async () => {
+  document.getElementById("loader").style.display = "block";
+  document.getElementById("emailBox").innerText = "Generating...";
 
   try {
     const res = await fetch("https://api.princetechn.com/api/tempmail/generate?apikey=prince");
     const data = await res.json();
 
-    if (data && data.email) {
+    if (data.email) {
       currentEmail = data.email;
-      emailDisplay.textContent = currentEmail;
+      document.getElementById("emailBox").innerText = "📧 " + currentEmail;
 
       // Copy to clipboard
       navigator.clipboard.writeText(currentEmail);
-      alert("Copied ✅ " + currentEmail);
+      alert("Email copied: " + currentEmail);
     } else {
-      emailDisplay.textContent = "Error generating email!";
+      document.getElementById("emailBox").innerText = "❌ Failed to generate";
     }
   } catch (err) {
-    emailDisplay.textContent = "API Error ❌";
+    document.getElementById("emailBox").innerText = "⚠️ Error: " + err.message;
   }
 
-  loader.style.display = "none"; // hide loader
+  document.getElementById("loader").style.display = "none";
 });
 
 // Load Inbox
 async function loadInbox() {
+  const inbox = document.getElementById("inbox");
+  const infoBox = document.getElementById("infoBox");
+
   if (!currentEmail) {
-    alert("Please generate an email first!");
+    infoBox.style.display = "block"; // Show warning box
+    inbox.innerHTML = "<li style='padding:10px; text-align:center;'>📭 No messages</li>";
     return;
+  } else {
+    infoBox.style.display = "none";
   }
 
-  loader.style.display = "block";
-  inboxList.innerHTML = "";
+  inbox.innerHTML = "<li style='padding:10px; text-align:center;'>⏳ Loading...</li>";
 
   try {
     const res = await fetch(`https://api.princetechn.com/api/tempmail/inbox?apikey=prince&email=${currentEmail}`);
     const data = await res.json();
 
-    if (data && data.messages && data.messages.length > 0) {
-      data.messages.forEach(msg => {
+    if (data && data.length > 0) {
+      inbox.innerHTML = "";
+      data.forEach(msg => {
         const li = document.createElement("li");
-        li.textContent = `${msg.from} - ${msg.subject}`;
+        li.style.padding = "10px";
+        li.style.borderBottom = "1px solid gray";
         li.style.cursor = "pointer";
+        li.innerText = `📨 From: ${msg.from} | Subject: ${msg.subject}`;
         li.onclick = () => loadMessage(msg.id);
-        inboxList.appendChild(li);
+        inbox.appendChild(li);
       });
     } else {
-      inboxList.innerHTML = "<li>No messages yet.</li>";
+      inbox.innerHTML = "<li style='padding:10px; text-align:center;'>📭 No messages</li>";
     }
   } catch (err) {
-    inboxList.innerHTML = "<li>Failed to load inbox ❌</li>";
+    inbox.innerHTML = "<li style='padding:10px; text-align:center;'>⚠️ Error loading inbox</li>";
   }
-
-  loader.style.display = "none";
 }
 
-// Load Specific Message
+// Load Single Message
 async function loadMessage(id) {
-  loader.style.display = "block";
+  if (!currentEmail) return;
+
+  const messageBox = document.getElementById("messageContent");
+  messageBox.innerText = "⏳ Loading message...";
 
   try {
     const res = await fetch(`https://api.princetechn.com/api/tempmail/message?apikey=prince&email=${currentEmail}&messageid=${id}`);
     const data = await res.json();
 
-    alert(`📩 From: ${data.from}\nSubject: ${data.subject}\n\n${data.body}`);
+    if (data && data.text) {
+      messageBox.innerText = data.text;
+    } else {
+      messageBox.innerText = "⚠️ Message not found!";
+    }
   } catch (err) {
-    alert("Failed to load message ❌");
+    messageBox.innerText = "⚠️ Error loading message!";
   }
-
-  loader.style.display = "none";
 }
