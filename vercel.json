@@ -16,7 +16,7 @@
     { "src": "public/ads.txt", "use": "@vercel/static" },
     { "src": "images/**", "use": "@vercel/static" },
     { "src": "database.js", "use": "@vercel/node" },
-    { "src": "temp.js", "use": "@vercel/static" },
+    { "src": "temp.js", "use": "@vercel/node" },
     { "src": "database.html", "use": "@vercel/static" }
   ],
   "routes": [
@@ -34,7 +34,7 @@
     { "src": "/", "dest": "/sports.html" },
     { "src": "/api/(.*)", "dest": "/database.js" },
     { "src": "/temp.js", "dest": "/temp.js" },
-    { "src": "/(.*)", "dest": "/temp.html" }
+    { "src": "/(.*)", "dest": "/temp.js" }
     { "src": "/", "dest": "/database.html" }
   ]
 }
