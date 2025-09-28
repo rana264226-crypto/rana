@@ -68,48 +68,4 @@
     }
   </style>
 </body>
-</html>      background: rgba(255,255,255,0.2);
-    }
-
-    #messageBox {
-      white-space: pre-wrap;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Back Button -->
-  <div class="back-btn" onclick="window.location.href='index.html'">⏪</div>
-
-  <!-- Heading -->
-  <h1>📧 Welcome To Kami Flex Temp Mail 📧</h1>
-
-  <!-- Clock -->
-  <div class="clock" id="clock"></div>
-
-  <!-- Generate Email -->
-  <button class="btn" onclick="generateEmail()">🎲 Generate Email</button>
-
-  <!-- Show Email -->
-  <div class="card" id="emailBox">📮 Email: Not Generated</div>
-
-  <!-- Inbox -->
-  <button class="btn" onclick="getInbox()">📥 Check Inbox</button>
-  <div class="card" id="inbox">Inbox is empty...</div>
-
-  <!-- Message -->
-  <div class="card" id="messageBox">📜 Message details will appear here...</div>
-
-  <script src="temp.js"></script>
-  <script>
-    // Clock
-    function updateClock() {
-      const now = new Date();
-      document.getElementById("clock").innerText =
-        now.toLocaleTimeString() + " | " + now.toLocaleDateString();
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-  </script>
-</body>
 </html>
