@@ -69,7 +69,7 @@ const channelList = [
   {name:"Hum Masala", logo:"https://pbs.twimg.com/media/EwA7OZJWYAAaYFg?format=jpg&name=240x240", url:"https://vodzong.mjunoon.tv:8087/streamtest/hum-masala-81/playlist.m3u8"},
   {name:"Mashriq", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfyx7RH8sbEmTQVmfPajoCBKDMQj-pVRxJzw&usqp=CAU", url:"https://vodzong.mjunoon.tv:8087/streamtest/mashriq-109/playlist.m3u8"},
   {name:"Hum Sitaray", logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQndr4CcgbXrrNs8wNz9j2LPNRftSNImlMlNQ&usqp=CAU", url:"https://vodzong.mjunoon.tv:8087/streamtest/HumSitaray-157-4/playlist.m3u8"},
-  {name:"Filmax", logo:"https://www.brandsynario.com/directory/wp-content/uploads/2018/01/a-23.png", url:"https://vodzong.mjunoon.tv:8087/streamtest/filmax-158-1/playlist.m3u8"}}
+  {name:"Filmax", logo:"https://www.brandsynario.com/directory/wp-content/uploads/2018/01/a-23.png", url:"https://vodzong.mjunoon.tv:8087/streamtest/filmax-158-1/playlist.m3u8"}
 ];
 
 const grid = document.getElementById("channelGrid");
@@ -78,5 +78,3 @@ channelList.forEach(ch=>{
   img.onclick=()=>playChannel(img,ch.name,ch.url);
   grid.appendChild(img);
 });
-
-
