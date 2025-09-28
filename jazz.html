@@ -108,7 +108,7 @@ function toggleFullScreen(){ if(!document.fullscreenElement){ playerBox.requestF
 function toggleSizeMode(){ sizeMode=(sizeMode==="fit")?"fill":(sizeMode==="fill")?"stretch":"fit"; video.style.objectFit=(sizeMode==="fit")?"contain":(sizeMode==="fill")?"cover":"fill"; }
 function toggleQualityMenu(){ qualityMenu.style.display=(qualityMenu.style.display==="block")?"none":"block"; }
 function toggleControls(){ controls.classList.toggle("hidden"); channelName.classList.toggle("hidden"); progressContainer.classList.toggle("hidden"); timeDisplay.classList.toggle("hidden"); }
-function goBack(){ window.location.href="index.html"; }
+function goBack(){ window.location.href="jazztv.html"; }
 
 // Progress bar
 const progressBar=document.getElementById("progressBar"), progressContainer=document.getElementById("progressContainer"), progressHandle=document.getElementById("progressHandle"), timeDisplay=document.getElementById("timeDisplay");
