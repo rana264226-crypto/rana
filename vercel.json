@@ -11,7 +11,7 @@
     { "src": "channels.js", "use": "@vercel/static" },
     { "src": "jazz.js", "use": "@vercel/static" },
     { "src": "sports.js", "use": "@vercel/static" },
-    { "src": "player.js", "use": "@vercel/static" },
+    { "src": "file.html", "use": "@vercel/static" },
     { "src": "public/ads.txt", "use": "@vercel/static" },
     { "src": "images/**", "use": "@vercel/static" },
     { "src": "database.js", "use": "@vercel/node" },
