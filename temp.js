@@ -1,56 +1,81 @@
+const generateBtn = document.getElementById("generateBtn");
+const emailDisplay = document.getElementById("email");
+const loader = document.getElementById("loader");
+const inboxList = document.getElementById("inbox");
+
 let currentEmail = "";
 
-// Generate Temp Email
-async function generateEmail() {
+// Generate Temp Mail
+generateBtn.addEventListener("click", async () => {
+  loader.style.display = "block"; // show loader
+  emailDisplay.textContent = "Generating...";
+  inboxList.innerHTML = "";
+
   try {
     const res = await fetch("https://api.princetechn.com/api/tempmail/generate?apikey=prince");
     const data = await res.json();
-    currentEmail = data.email;
-    document.getElementById("emailBox").innerText = "📮 Email: " + currentEmail;
-    document.getElementById("inbox").innerText = "Inbox is empty...";
-    document.getElementById("messageBox").innerText = "📜 Message details will appear here...";
-  } catch {
-    alert("❌ Error generating email!");
-  }
-}
 
-// Get Inbox
-async function getInbox() {
+    if (data && data.email) {
+      currentEmail = data.email;
+      emailDisplay.textContent = currentEmail;
+
+      // Copy to clipboard
+      navigator.clipboard.writeText(currentEmail);
+      alert("Copied ✅ " + currentEmail);
+    } else {
+      emailDisplay.textContent = "Error generating email!";
+    }
+  } catch (err) {
+    emailDisplay.textContent = "API Error ❌";
+  }
+
+  loader.style.display = "none"; // hide loader
+});
+
+// Load Inbox
+async function loadInbox() {
   if (!currentEmail) {
-    alert("⚠️ Please generate email first!");
+    alert("Please generate an email first!");
     return;
   }
+
+  loader.style.display = "block";
+  inboxList.innerHTML = "";
+
   try {
     const res = await fetch(`https://api.princetechn.com/api/tempmail/inbox?apikey=prince&email=${currentEmail}`);
     const data = await res.json();
-    const inboxDiv = document.getElementById("inbox");
-    inboxDiv.innerHTML = "";
-    if (data.length === 0) {
-      inboxDiv.innerText = "📭 No messages yet!";
-      return;
+
+    if (data && data.messages && data.messages.length > 0) {
+      data.messages.forEach(msg => {
+        const li = document.createElement("li");
+        li.textContent = `${msg.from} - ${msg.subject}`;
+        li.style.cursor = "pointer";
+        li.onclick = () => loadMessage(msg.id);
+        inboxList.appendChild(li);
+      });
+    } else {
+      inboxList.innerHTML = "<li>No messages yet.</li>";
     }
-    data.forEach(msg => {
-      const div = document.createElement("div");
-      div.className = "message";
-      div.innerHTML = `<b>From:</b> ${msg.from}<br><b>Subject:</b> ${msg.subject}`;
-      div.onclick = () => getMessage(msg.id);
-      inboxDiv.appendChild(div);
-    });
-  } catch {
-    alert("❌ Error fetching inbox!");
+  } catch (err) {
+    inboxList.innerHTML = "<li>Failed to load inbox ❌</li>";
   }
+
+  loader.style.display = "none";
 }
 
-// Get Message
-async function getMessage(messageId) {
+// Load Specific Message
+async function loadMessage(id) {
+  loader.style.display = "block";
+
   try {
-    const res = await fetch(`https://api.princetechn.com/api/tempmail/message?apikey=prince&email=${currentEmail}&messageid=${messageId}`);
+    const res = await fetch(`https://api.princetechn.com/api/tempmail/message?apikey=prince&email=${currentEmail}&messageid=${id}`);
     const data = await res.json();
-    document.getElementById("messageBox").innerHTML =
-      `<b>From:</b> ${data.from}<br>
-       <b>Subject:</b> ${data.subject}<br><br>
-       <b>Body:</b><br>${data.body}`;
-  } catch {
-    alert("❌ Error fetching message!");
+
+    alert(`📩 From: ${data.from}\nSubject: ${data.subject}\n\n${data.body}`);
+  } catch (err) {
+    alert("Failed to load message ❌");
   }
+
+  loader.style.display = "none";
 }
