@@ -72,6 +72,7 @@
     flex-direction: column;
     gap: 15px;
     margin-top: 30px;
+    align-items: center;
   }
 
   .btn {
@@ -129,6 +130,27 @@
     background: #005f8c;
     transform: scale(1.05);
   }
+
+  .vpn-note {
+    margin-top: 15px;
+    padding: 20px 30px;
+    background: linear-gradient(135deg, #0b3a66, #0a3a2b, #3a3a0b);
+    border-radius: 15px;
+    border: 2px solid #00f;
+    font-size: 1.1rem;
+    text-align: center;
+    line-height: 1.6;
+    color: #ffeb3b;
+    max-width: 380px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .vpn-note:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 25px rgba(0,0,0,0.7);
+  }
+
 </style>
 </head>
 <body>
@@ -145,31 +167,52 @@
 </div>
 
 <div class="buttons">
-  <button class="btn" onclick="window.open('https://www.mediafire.com/file/example1', '_blank')">Jazz Ufone</button>
-  <button class="btn" onclick="window.open('https://www.mediafire.com/file/example2', '_blank')">Onic Unlimited Free 🆓</button>
-  <button class="btn" onclick="window.open('https://www.mediafire.com/file/example3', '_blank')">Ufone Whatsapp</button>
-  <button class="btn" onclick="window.open('https://www.mediafire.com/file/example4', '_blank')">Telenor Whatsapp</button>
-  <button class="btn" onclick="window.open('https://www.mediafire.com/file/example5', '_blank')">Zong Whatsapp</button>
-</div>
+  <button class="btn" onclick="window.open('https://www.mediafire.com/file/usv7ghfhfz0rf50/Jazz+Ufone+Snapchat+✅.dark/file', '_blank')">Jazz Ufone Snapchat ✅</button>
+
+  <button class="btn" onclick="window.open('https://www.mediafire.com/file/6pf0hb7256r4fpq/Onic+Unlimited+Free+✅.dark/file', '_blank')">Onic Unlimited Free 🆓</button>
+
+  <button class="btn" onclick="window.open('https://www.mediafire.com/file/asedjx37ih3bpyb/Ufone+Whatsapp+✅.dark/file', '_blank')">Ufone Whatsapp ✅</button>
+
+  <button class="btn" onclick="showTelenorLinks()">Telenor Whatsapp ✅</button>
+
+  <div id="telenor-links" style="display:none; margin-top:10px; flex-direction: column; gap:10px;">
+    <button class="btn" onclick="window.open('https://www.mediafire.com/file/v5lsvvs0bvlvasn/Telenor+Whatsapp+✅.dark/file', '_blank')">Telenor Whatsapp File 🗃️</button>
+    <button class="btn" onclick="window.open('https://www.mediafire.com/file/nlfmljoimioi3vk/Telenor+Whatsapp+2+✅.dark/file', '_blank')">Telenor Whatsapp File 🗃️ 2</button>
+  </div>
+
+  <button class="btn" onclick="window.open('https://www.mediafire.com/file/y0mr1hgfe25k5r0/Zong+Whatsapp+✅.dark/file', '_blank')">Zong Whatsapp ✅</button>
+
+<button class="btn" onclick="window.open('https://play.google.com/store/apps/details?id=net.darktunnel.app', '_blank')">DARK TUNNEL VPN</button>
 
 <button class="telegram-btn" onclick="window.open('https://t.me/kami_broken5', '_blank')">Join Telegram Channel</button>
 
+<div class="vpn-note">
+  <strong>VPN NAME :</strong> DARK TUNNEL<br>
+  <strong>SERVERS :</strong> Germany 🇩🇪<br>
+  <strong>CONFIG VERSION :</strong> SSH WEBSOCKET
+</div>
+
 <script>
-  function updateClockDate() {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2,'0');
-    const minutes = String(now.getMinutes()).padStart(2,'0');
-    const seconds = String(now.getSeconds()).padStart(2,'0');
-    document.getElementById('clock').innerText = `${hours}:${minutes}:${seconds}`;
+function showTelenorLinks() {
+  const linksDiv = document.getElementById('telenor-links');
+  linksDiv.style.display = linksDiv.style.display === 'none' ? 'flex' : 'none';
+}
 
-    const day = String(now.getDate()).padStart(2,'0');
-    const month = String(now.getMonth()+1).padStart(2,'0');
-    const year = now.getFullYear();
-    document.getElementById('date').innerText = `${day}/${month}/${year}`;
-  }
+function updateClockDate() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2,'0');
+  const minutes = String(now.getMinutes()).padStart(2,'0');
+  const seconds = String(now.getSeconds()).padStart(2,'0');
+  document.getElementById('clock').innerText = `${hours}:${minutes}:${seconds}`;
 
-  setInterval(updateClockDate, 1000);
-  updateClockDate();
+  const day = String(now.getDate()).padStart(2,'0');
+  const month = String(now.getMonth()+1).padStart(2,'0');
+  const year = now.getFullYear();
+  document.getElementById('date').innerText = `${day}/${month}/${year}`;
+}
+
+setInterval(updateClockDate, 1000);
+updateClockDate();
 </script>
 
 <!-- Monetag Script -->
