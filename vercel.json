@@ -28,11 +28,11 @@
     { "src": "/file", "dest": "/file.html" },
     { "src": "/channels.js", "dest": "/channels.js" },
     { "src": "/jazz.js", "dest": "/jazz.js" },
-    { "src": "/temp", "dest": "/temp.html" },
     { "src": "/sports.js", "dest": "/sports.js" },
     { "src": "/ads.txt", "dest": "/public/ads.txt" },
     { "src": "/sports", "dest": "/sports.html" },
     { "src": "/api/tempmail", "dest": "/tempmail.js" },
+    { "src": "/temp", "dest": "/temp.html" },
     { "src": "/api/(.*)", "dest": "/database.js" },
     { "src": "/database", "dest": "/database.html" }
   ]
