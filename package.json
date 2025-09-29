@@ -1,13 +1,7 @@
 {
-  "name": "kami-temp",
+  "name": "kami-flex-temp-mail",
   "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "start": "vercel dev"
-  },
   "dependencies": {
-    "express": "^4.18.2",
     "node-fetch": "^2.6.7"
   }
 }
