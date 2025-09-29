@@ -1,14 +1,7 @@
 {
-  "name": "tempmail-database-kami",
+  "name": "kami-flex-temp-mail",
   "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "start": "node database.js",
-    "start": "node tempmail.js"
-  },
   "dependencies": {
-    "express": "^4.18.2",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^2.6.7"
   }
 }
