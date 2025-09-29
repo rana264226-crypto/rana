@@ -32,8 +32,8 @@
     { "src": "/sports.js", "dest": "/sports.js" },
     { "src": "/ads.txt", "dest": "/public/ads.txt" },
     { "src": "/sports", "dest": "/sports.html" },
-    { "src": "/api/database", "dest": "/database.js" },
-    { "src": "/api/tempmail", "dest": "/tempmail.js" },
+    { "src": "/api/(.*)", "dest": "/database.js" },
+    { "src": "/api/(.*)", "dest": "/tempmail.js" },
     { "src": "/database", "dest": "/database.html" }
   ]
 }
