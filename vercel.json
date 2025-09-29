@@ -15,8 +15,8 @@
     { "src": "temp.html", "use": "@vercel/static" },
     { "src": "public/ads.txt", "use": "@vercel/static" },
     { "src": "images/**", "use": "@vercel/static" },
-    { "src": "database.js", "use": "@vercel/node" },
     { "src": "tempmail.js", "use": "@vercel/node" },
+    { "src": "database.js", "use": "@vercel/node" },
     { "src": "database.html", "use": "@vercel/static" }
   ],
   "routes": [
@@ -32,8 +32,8 @@
     { "src": "/sports.js", "dest": "/sports.js" },
     { "src": "/ads.txt", "dest": "/public/ads.txt" },
     { "src": "/sports", "dest": "/sports.html" },
-    { "src": "/api/(.*)", "dest": "/database.js" },
     { "src": "/api/tempmail", "dest": "/tempmail.js" },
+    { "src": "/api/(.*)", "dest": "/database.js" },
     { "src": "/database", "dest": "/database.html" }
   ]
 }
