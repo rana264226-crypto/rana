@@ -1,20 +1,13 @@
 {
-  "name": "kami-flex-apis",
+  "name": "kami-temp",
   "version": "1.0.0",
-  "description": "Kami Flex project APIs for database and temp mail",
+  "main": "index.js",
   "type": "module",
-  "main": "database.js",
   "scripts": {
-    "start:database": "node database.js",
-    "start:tempmail": "node tempmail.js",
-    "start": "concurrently \"npm run start:database\" \"npm run start:tempmail\""
+    "start": "vercel dev"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "node-fetch": "^2.6.7",
-    "concurrently": "^8.2.0"
-  },
-  "engines": {
-    "node": ">=18"
+    "node-fetch": "^2.6.7"
   }
 }
