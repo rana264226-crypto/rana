@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 
-const API_KEY = "prince"; 
+const API_KEY = "prince"; // fixed API key
 const BASE = "https://api.princetechn.com/api/tempmail";
 
 module.exports = async (req, res) => {
