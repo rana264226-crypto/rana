@@ -34,7 +34,7 @@
     { "src": "/ai.html", "dest": "/ai.html" },
     { "src": "/channels.js", "dest": "/channels.js" },
     { "src": "/jazz.js", "dest": "/jazz.js" },
-    { "src": "/sports.js", "dest": "/sports.js" },{ "src": "jazz.js", "use": "@vercel/static" },
+    { "src": "/sports.js", "dest": "/sports.js" },
     { "src": "/ads.txt", "dest": "/public/ads.txt" },
     { "src": "/sports", "dest": "/sports.html" },
     { "src": "/api/tempmail", "dest": "/tempmail.js" },
