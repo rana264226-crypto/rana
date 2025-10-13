@@ -13,9 +13,11 @@
     { "src": "sports.js", "use": "@vercel/static" },
     { "src": "file.html", "use": "@vercel/static" },
     { "src": "temp.html", "use": "@vercel/static" },
+    { "src": "sms.html", "use": "@vercel/static" },
     { "src": "public/ads.txt", "use": "@vercel/static" },
     { "src": "images/**", "use": "@vercel/static" },
     { "src": "tempmail.js", "use": "@vercel/node" },
+    { "src": "send.js", "use": "@vercel/node" },
     { "src": "database.js", "use": "@vercel/node" },
     { "src": "database.html", "use": "@vercel/static" }
   ],
@@ -33,6 +35,8 @@
     { "src": "/sports", "dest": "/sports.html" },
     { "src": "/api/tempmail", "dest": "/tempmail.js" },
     { "src": "/temp", "dest": "/temp.html" },
+    { "src": "/api/send", "dest": "/send.js" },
+    { "src": "/sms", "dest": "/sms.html" },
     { "src": "/api/(.*)", "dest": "/database.js" },
     { "src": "/database", "dest": "/database.html" }
   ]
